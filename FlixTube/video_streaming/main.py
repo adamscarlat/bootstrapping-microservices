@@ -10,7 +10,7 @@ app = FastAPI()
 
 @app.get("/video")
 async def stream_video():
-  video_path = "videos/SampleVideo_1280x720_5mb.mp4"
+  video_path = "./videos/SampleVideo_1280x720_5mb.mp4"
   file_size_bytes = get_file_size(video_path)
 
   return StreamingResponse(
