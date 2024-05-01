@@ -5,12 +5,28 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Python Debugger: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+    {
       "name": "Video Server",
       "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/video-streaming/src/main.py",
       "envFile": "${workspaceFolder}/video-streaming/.env",
       "cwd": "${workspaceFolder}/video-streaming",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Storage Server",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/azure-storage/src/main.py",
+      "envFile": "${workspaceFolder}/azure-storage/.env",
+      "cwd": "${workspaceFolder}/azure-storage",
       "console": "integratedTerminal"
     }
   ]

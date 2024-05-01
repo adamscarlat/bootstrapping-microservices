@@ -1,24 +1,23 @@
+import io
 from fastapi import FastAPI
 from starlette.responses import StreamingResponse
+from video import download_video
 
 import environment
-
-from models.item import Item
-from video import get_file_size, stream_video_file
 
 app = FastAPI()
 
 @app.get("/video")
 async def stream_video():
-  video_path = "./videos/SampleVideo_1280x720_5mb.mp4"
-  file_size_bytes = get_file_size(video_path)
+  video_name = "SampleVideo_1280x720_5mb.mp4"
+  video_response = await download_video(video_name)
 
   return StreamingResponse(
-     stream_video_file(video_path), 
-     media_type="video/mp4",
-     headers={
-        "Content-Length": str(file_size_bytes)
-     }
+      io.BytesIO(video_response.content), 
+      media_type="video/mp4",
+      headers={
+        "Content-Length": str(video_response.headers["Content-Length"])
+      }
   )
 
 if __name__ == "__main__":
