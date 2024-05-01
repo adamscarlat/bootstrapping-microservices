@@ -8,9 +8,9 @@
       "name": "Video Server",
       "type": "debugpy",
       "request": "launch",
-      "program": "${workspaceFolder}/video_streaming/main.py",
-      "envFile": "${workspaceFolder}/video_streaming/.env",
-      "cwd": "${workspaceFolder}/video_streaming",
+      "program": "${workspaceFolder}/video-streaming/src/main.py",
+      "envFile": "${workspaceFolder}/video-streaming/.env",
+      "cwd": "${workspaceFolder}/video-streaming",
       "console": "integratedTerminal"
     }
   ]
