@@ -26,5 +26,4 @@ async def stream_video(id: str, db_client: AsyncIOMotorDatabase = Depends(db.get
   )
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=environment.PORT)
+  environment.start_app()

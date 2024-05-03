@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+  db:
+    extends:
+      file: docker-compose.infra.yml
+      service: db
+
+  mongo-express:
+    extends:
+      file: docker-compose.infra.yml
+      service: mongo-express
+
+  azure-storage:
+    image: azure-storage
+    build:
+      context: ./azure-storage
+      dockerfile: dockerfile-dev
+    container_name: video-storage
+    volumes:
+      - ./tmp/azure-storage/pip-cache:/root/pip-cache
+      - ./azure-storage/src:/app/src:z       
+    ports:
+      - "8001:80"
+    environment:
+      - PORT=80
+      - STORAGE_ACCOUNT_NAME=${STORAGE_ACCOUNT_NAME}
+      - STORAGE_ACCESS_KEY=${STORAGE_ACCESS_KEY}
+      - DEV=1
+    restart: "no"
+
+  video-streaming:
+    image: video-streaming
+    build:
+      context: ./video-streaming
+      dockerfile: dockerfile-dev
+    container_name: video-streaming
+    volumes:
+      - ./tmp/video-streaming/pip-cache:/root/pip-cache
+      - ./video-streaming/src:/app/src:z    
+    ports:
+      - 8000:80
+    environment:
+      - PORT=80
+      - DBHOST=db:27017
+      - DBNAME=video-streaming
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}      
+      - VIDEO_STORAGE_HOST=video-storage
+      - VIDEO_STORAGE_PORT=80
+      - DEV=1
+    restart: "no"
+
+  history:
+    image: history
+    build:
+      context: ./history
+      dockerfile: dockerfile-dev
+    container_name: history
+    volumes:
+      - ./tmp/history/pip-cache:/root/pip-cache
+      - ./history/src:/app/src:z
+    ports:
+      - 8002:80
+    environment:
+      - PORT=80
+      - DEV=1
+    restart: "no"
+
+volumes:
+  mongodb_data:
+    driver: local

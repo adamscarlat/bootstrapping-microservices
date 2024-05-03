@@ -1,7 +1,7 @@
 FROM python:3.11-slim
 
 # Build command
-# docker build -f ./docker/Dockerfile -t azure-storage .
+# docker build -f ./dockerfile-prod -t history .
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1

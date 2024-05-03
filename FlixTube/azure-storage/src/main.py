@@ -25,5 +25,4 @@ async def get_video(path: str):
     )
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=environment.PORT)
+  environment.start_app()

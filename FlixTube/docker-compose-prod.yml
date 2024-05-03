@@ -2,51 +2,35 @@ version: '3'
 
 services:
   db:
-    image: mongo:7.0.0
-    container_name: db
-    ports:
-      - "4000:27017"
-    restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=pass       
-    volumes:
-      - mongodb_data:/data/db
+    extends:
+      file: docker-compose.infra.yml
+      service: db
 
   mongo-express:
-    image: mongo-express
-    container_name: mongo-express
-    ports:
-      - "4001:8081"
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=db
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
-      - ME_CONFIG_BASICAUTH_USERNAME=admin
-      - ME_CONFIG_BASICAUTH_PASSWORD=pass   
-    restart: always
-    depends_on:
-      - db
+    extends:
+      file: docker-compose.infra.yml
+      service: mongo-express
 
   azure-storage:
     image: azure-storage
     build:
       context: ./azure-storage
-      dockerfile: dockerfile
-    container_name: video-storage
+      dockerfile: dockerfile-prod
+    container_name: video-storage 
     ports:
       - "8001:80"
     environment:
       - PORT=80
       - STORAGE_ACCOUNT_NAME=${STORAGE_ACCOUNT_NAME}
       - STORAGE_ACCESS_KEY=${STORAGE_ACCESS_KEY}
+      - DEV=0
     restart: "no"
 
   video-streaming:
     image: video-streaming
     build:
       context: ./video-streaming
-      dockerfile: dockerfile
+      dockerfile: dockerfile-prod
     container_name: video-streaming
     ports:
       - 8000:80
@@ -58,6 +42,20 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}      
       - VIDEO_STORAGE_HOST=video-storage
       - VIDEO_STORAGE_PORT=80
+      - DEV=0
+    restart: "no"
+
+  history:
+    image: history
+    build:
+      context: ./history
+      dockerfile: dockerfile-prod
+    container_name: history
+    ports:
+      - 8002:80
+    environment:
+      - PORT=80
+      - DEV=0
     restart: "no"
 
 volumes:
