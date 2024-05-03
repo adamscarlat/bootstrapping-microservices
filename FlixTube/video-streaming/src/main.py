@@ -1,16 +1,21 @@
 import io
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from starlette.responses import StreamingResponse
 from video import download_video
+from motor.motor_asyncio import AsyncIOMotorDatabase
 
 import environment
+import db
 
 app = FastAPI()
 
 @app.get("/video")
-async def stream_video():
-  video_name = "SampleVideo_1280x720_5mb.mp4"
-  video_response = await download_video(video_name)
+async def stream_video(id: str, db_client: AsyncIOMotorDatabase = Depends(db.get_database_client)):
+  item = await db.get_item_by_id(db_client, "videos", id)
+  if not item or "videoPath" not in item:
+     raise HTTPException(status_code=404, detail="Item not found")
+  print (item["videoPath"])
+  video_response = await download_video(item["videoPath"])
 
   return StreamingResponse(
       io.BytesIO(video_response.content), 
