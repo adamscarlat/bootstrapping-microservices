@@ -28,6 +28,15 @@
       "envFile": "${workspaceFolder}/azure-storage/.env",
       "cwd": "${workspaceFolder}/azure-storage",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "History Server",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/history/src/main.py",
+      "envFile": "${workspaceFolder}/history/.env",
+      "cwd": "${workspaceFolder}/history",
+      "console": "integratedTerminal"
     }
   ]
 }
