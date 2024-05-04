@@ -1,15 +1,7 @@
 import json
 import db
+from models import ViewedVideoMessage
 
-async def process_queue_viewed_message(message):
-  data = json.loads(message.body)
-
-  print (f"Received message: {data}. Processing...")
-
+async def save_viewed_message(message: ViewedVideoMessage):
   async for db_client in db.get_database_client():
-    await db.save_item(db_client, "history", data)
-
-
-
-
-  
+    await db.save_item(db_client, "history", message)  

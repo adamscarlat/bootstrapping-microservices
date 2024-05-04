@@ -1,3 +1,4 @@
+import asyncio
 from contextlib import asynccontextmanager
 import environment
 import db
@@ -6,11 +7,16 @@ import video
 from fastapi import FastAPI, Depends
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from models import ViewedVideoMessage
-from message_bus import consume_queue
+from pika_client import PikaClient
+
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    await consume_queue("viewed", video.process_queue_viewed_message)
+    loop = asyncio.get_running_loop()
+    pika_client = PikaClient(video.save_viewed_message, "viewed", loop)
+    task = loop.create_task(pika_client.consume())
+    await task
+
     yield
 
 app = FastAPI(lifespan=lifespan)
