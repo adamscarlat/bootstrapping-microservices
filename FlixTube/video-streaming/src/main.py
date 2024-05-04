@@ -1,7 +1,5 @@
-import io
 from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
-from starlette.responses import StreamingResponse
 from video import download_video, send_viewed_message
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
@@ -26,8 +24,8 @@ async def redirect_to_url(id: str, db_client: AsyncIOMotorDatabase = Depends(db.
 async def stream_video(path: str):
   video_response = await download_video(path)
 
-  return StreamingResponse(
-      io.BytesIO(video_response.content), 
+  return Response(
+      content=video_response.content, 
       media_type="video/mp4",
       headers={
         "Content-Length": str(video_response.headers["Content-Length"])

@@ -86,12 +86,8 @@ services:
       - RABBIT_PASSWORD=pass
       - RABBIT_HOST=rabbitmq
       - RABBIT_PORT=5672        
-      - DEV=1
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
+      - DEV=0
+    restart: on-failure
     depends_on:
       - rabbitmq
       - db    

@@ -1,7 +1,7 @@
 import environment
 
-from fastapi import FastAPI
-from storage import create_blob_service_client, stream_blob
+from fastapi import FastAPI, Response
+from storage import create_blob_service_client, stream_blob, download_blob
 from starlette.responses import StreamingResponse
 
 app = FastAPI()
@@ -15,13 +15,14 @@ async def get_video(path: str):
     blob_client = container_client.get_blob_client(path)
     
     video_properties = blob_client.get_blob_properties()
+    video_bytes = download_blob(blob_client)
 
-    return StreamingResponse(
-        stream_blob(blob_client),
-        media_type="video/mp4",
-        headers={
-            "Content-Length": str(video_properties.size)
-        }
+    return Response(
+       content=video_bytes, 
+       media_type="application/octet-stream",
+       headers={
+        "Content-Length": str(video_properties.size)
+       }
     )
 
 if __name__ == "__main__":
