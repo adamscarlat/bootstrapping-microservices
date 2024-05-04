@@ -54,10 +54,11 @@ services:
       - HISTORY_HOST=history
       - HISTORY_PORT=80
       - DEV=0
-    restart: on-failure
     depends_on:
-      - rabbitmq
-      - db
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
 
   history:
     image: history
@@ -78,10 +79,11 @@ services:
       - RABBIT_HOST=rabbitmq
       - RABBIT_PORT=5672        
       - DEV=0
-    restart: on-failure
     depends_on:
-      - rabbitmq
-      - db   
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
 
 volumes:
   mongodb_data:

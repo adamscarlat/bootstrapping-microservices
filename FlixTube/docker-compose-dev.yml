@@ -62,8 +62,10 @@ services:
       - DEV=1
     restart: on-failure
     depends_on:
-      - rabbitmq
-      - db
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started 
 
   history:
     image: history
@@ -86,11 +88,12 @@ services:
       - RABBIT_PASSWORD=pass
       - RABBIT_HOST=rabbitmq
       - RABBIT_PORT=5672        
-      - DEV=0
-    restart: on-failure
+      - DEV=1
     depends_on:
-      - rabbitmq
-      - db    
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started 
 
 
 volumes:

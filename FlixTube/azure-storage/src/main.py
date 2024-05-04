@@ -1,8 +1,7 @@
 import environment
 
 from fastapi import FastAPI, Response
-from storage import create_blob_service_client, stream_blob, download_blob
-from starlette.responses import StreamingResponse
+from storage import create_blob_service_client, download_blob
 
 app = FastAPI()
 
