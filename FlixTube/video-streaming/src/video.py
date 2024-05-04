@@ -1,6 +1,9 @@
+import asyncio
 import os
 import environment
 import httpx
+
+from pika_client import PikaClient
 
 def get_file_size(path: str):
   return os.path.getsize(path)
@@ -28,5 +31,13 @@ async def send_viewed_message(video_id: str, video_path: str):
     "video_path": video_path
   }
   async with httpx.AsyncClient() as client:
-    response = await client.post(history_url, json=data)
-    
+    await client.post(history_url, json=data)
+
+async def publish_viewed_message(id: str, video_path: str):
+  loop = asyncio.get_running_loop()
+  pika_client = PikaClient("viewed", loop)
+
+  await pika_client.send_message({
+    "id": id,
+    "video_path": video_path
+  })
