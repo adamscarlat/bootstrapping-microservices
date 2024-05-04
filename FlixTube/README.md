@@ -12,3 +12,8 @@ Temp
 "video_path":"hey1"
 }
 ```
+
+Docs
+----
+* Pika aio and fastapi set up
+  - https://itracer.medium.com/rabbitmq-publisher-and-consumer-with-fastapi-175fe87aefe1
