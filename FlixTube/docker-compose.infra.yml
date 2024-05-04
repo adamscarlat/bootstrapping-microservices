@@ -28,7 +28,23 @@ services:
     depends_on:
       - db
 
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # AMQP
+      - "15672:15672"  # RabbitMQ Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}  
+      RABBITMQ_MANAGEMENT_USERNAME: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_MANAGEMENT_PASSWORD: ${RABBITMQ_DEFAULT_PASS}  
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_logs:/var/log/rabbitmq
+    restart: always
 
 volumes:
   mongodb_data:
-    driver: local
+  rabbitmq_data:
+  rabbitmq_logs:

@@ -1,11 +1,19 @@
+from contextlib import asynccontextmanager
 import environment
 import db
+import video
 
 from fastapi import FastAPI, Depends
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from models import ViewedVideoMessage
+from message_bus import consume_queue
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    await consume_queue("viewed", video.process_queue_viewed_message)
+    yield
+
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/history")
 async def get_history():

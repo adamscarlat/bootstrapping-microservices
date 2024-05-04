@@ -1,6 +1,7 @@
 import environment
 from motor.motor_asyncio import AsyncIOMotorDatabase, AsyncIOMotorCollection, AsyncIOMotorClient
 
+
 async def get_database_client():
   mongo_uri = f"mongodb://{environment.DB_USERNAME}:{environment.DB_PASSWORD}@{environment.DBHOST}"
   client = AsyncIOMotorClient(mongo_uri)
@@ -24,3 +25,5 @@ async def save_item(db_client: AsyncIOMotorDatabase, collection_name: str, item:
   saved = await collection.insert_one(item)
 
   return saved
+
+

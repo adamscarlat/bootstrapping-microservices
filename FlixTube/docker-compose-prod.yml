@@ -11,6 +11,11 @@ services:
       file: docker-compose.infra.yml
       service: mongo-express
 
+  rabbitmq:
+     extends:
+      file: docker-compose.infra.yml
+      service: rabbitmq 
+
   azure-storage:
     image: azure-storage
     build:
@@ -39,11 +44,20 @@ services:
       - DBHOST=db:27017
       - DBNAME=video-streaming
       - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}      
+      - DB_PASSWORD=${DB_PASSWORD}
+      - RABBIT_USER=admin
+      - RABBIT_PASSWORD=pass
+      - RABBIT_HOST=rabbitmq
+      - RABBIT_PORT=5672             
       - VIDEO_STORAGE_HOST=video-storage
       - VIDEO_STORAGE_PORT=80
+      - HISTORY_HOST=history
+      - HISTORY_PORT=80
       - DEV=0
-    restart: "no"
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - db
 
   history:
     image: history
@@ -55,9 +69,21 @@ services:
       - 8002:80
     environment:
       - PORT=80
+      - DBHOST=db:27017
+      - DBNAME=video-streaming
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}    
+      - RABBIT_USER=admin
+      - RABBIT_PASSWORD=pass
+      - RABBIT_HOST=rabbitmq
+      - RABBIT_PORT=5672        
       - DEV=0
-    restart: "no"
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - db   
 
 volumes:
   mongodb_data:
-    driver: local
+  rabbitmq_data:
+  rabbitmq_logs:
