@@ -20,3 +20,13 @@ async def download_video(video_name: str):
     return await client.get(video_storage_url, params={
        "path": video_name
     })
+  
+async def send_viewed_message(video_id: str, video_path: str):
+  history_url = f"http://{environment.HISTORY_HOST}:{environment.HISTORY_PORT}/viewed"
+  data = {
+    "id": video_id,
+    "video_path": video_path
+  }
+  async with httpx.AsyncClient() as client:
+    response = await client.post(history_url, json=data)
+    
