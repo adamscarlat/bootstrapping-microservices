@@ -37,6 +37,15 @@
       "envFile": "${workspaceFolder}/history/.env",
       "cwd": "${workspaceFolder}/history",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Recommendations Server",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/recommendations/src/main.py",
+      "envFile": "${workspaceFolder}/recommendations/.env",
+      "cwd": "${workspaceFolder}/recommendations",
+      "console": "integratedTerminal"
     }
   ]
 }

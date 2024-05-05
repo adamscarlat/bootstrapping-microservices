@@ -66,6 +66,25 @@ services:
       db:
         condition: service_started
 
+  recommendations:
+    image: recommendations
+    build:
+      context: ./recommendations
+      dockerfile: dockerfile-prod
+    container_name: recommendations
+    ports:
+      - 8003:80
+    env_file:
+      - .env
+    environment:  
+      - DEV=0      
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started 
+
+
 volumes:
   mongodb_data:
   rabbitmq_data:

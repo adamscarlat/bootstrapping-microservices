@@ -16,7 +16,6 @@ from pika_client import PikaClient
 async def lifespan(_: FastAPI):
     loop = asyncio.get_running_loop()
     pika_client = PikaClient(video.save_viewed_message, loop)
-    #task = loop.create_task(pika_client.consume_direct("viewed"))
     task = loop.create_task(pika_client.consume_exchange("viewed"))
     await task
 

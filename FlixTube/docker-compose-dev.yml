@@ -23,7 +23,7 @@ services:
       dockerfile: dockerfile-dev
     container_name: video-storage
     volumes:
-      - ./tmp/azure-storage/pip-cache:/root/pip-cache
+      - ./.tmp/azure-storage/pip-cache:/root/pip-cache
       - ./azure-storage/src:/app/src:z       
     ports:
       - "8001:80"
@@ -38,7 +38,7 @@ services:
       dockerfile: dockerfile-dev
     container_name: video-streaming
     volumes:
-      - ./tmp/video-streaming/pip-cache:/root/pip-cache
+      - ./.tmp/video-streaming/pip-cache:/root/pip-cache
       - ./video-streaming/src:/app/src:z    
     ports:
       - 8000:80
@@ -58,7 +58,7 @@ services:
       dockerfile: dockerfile-dev
     container_name: history
     volumes:
-      - ./tmp/history/pip-cache:/root/pip-cache
+      - ./.tmp/history/pip-cache:/root/pip-cache
       - ./history/src:/app/src:z
     ports:
       - 8002:80
@@ -70,6 +70,24 @@ services:
       db:
         condition: service_started 
 
+  recommendations:
+    image: recommendations
+    build:
+      context: ./recommendations
+      dockerfile: dockerfile-dev
+    container_name: recommendations
+    volumes:
+      - ./.tmp/recommendations/pip-cache:/root/pip-cache
+      - ./recommendations/src:/app/src:z
+    ports:
+      - 8003:80
+    env_file:
+      - .env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started 
 
 volumes:
   mongodb_data:
