@@ -16,7 +16,7 @@ async def redirect_to_url(id: str, db_client: AsyncIOMotorDatabase = Depends(db.
      raise HTTPException(status_code=404, detail="Item not found")
   
   video_path = item["videoPath"]
-  await publish_viewed_message(id, item["videoPath"])
+  await publish_viewed_message(id, item["videoPath"], exchange_name="viewed")
 
   return RedirectResponse(url=f"/video/download?path={video_path}")
 

@@ -33,11 +33,17 @@ async def send_viewed_message(video_id: str, video_path: str):
   async with httpx.AsyncClient() as client:
     await client.post(history_url, json=data)
 
-async def publish_viewed_message(id: str, video_path: str):
+async def publish_viewed_message(id: str, video_path: str, exchange_name: str = "", queue_name: str = ""):
   loop = asyncio.get_running_loop()
-  pika_client = PikaClient("viewed", loop)
+  pika_client = PikaClient(loop)
 
-  await pika_client.send_message({
+  message = {
     "id": id,
     "video_path": video_path
-  })
+  }
+
+  if queue_name:
+    await pika_client.send_direct(message, queue_name)
+    return
+  
+  await pika_client.send_to_exchange(message, exchange_name)
