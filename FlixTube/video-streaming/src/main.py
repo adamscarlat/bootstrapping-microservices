@@ -1,10 +1,9 @@
-import asyncio
 import environment
 import db
 
 from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
-from video import download_video, publish_viewed_message
+from video import download_video, publish_viewed_message, read_file
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
 app = FastAPI()
@@ -29,6 +28,19 @@ async def stream_video(path: str):
     media_type="video/mp4",
     headers={
       "Content-Length": str(video_response.headers["Content-Length"])
+    }
+  )
+
+@app.get("/video/test")
+async def stream_test_video():
+
+  video_bytes = read_file("./videos/SampleVideo_1280x720_5mb.mp4")
+
+  return Response(
+    content=video_bytes, 
+    media_type="video/mp4",
+    headers={
+      "Content-Length": str(len(video_bytes))
     }
   )
 

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-streaming
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video-streaming
+  template:
+    metadata:
+      labels:
+        app: video-streaming
+    spec:
+      containers:
+      - name: video-streaming
+        image: ascarlat.azurecr.io/video-streaming:2
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+              name: global-env        
+        env:
+          - name: PORT
+            value: "8000"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: video-streaming
+spec:
+  selector:
+    app: video-streaming
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
