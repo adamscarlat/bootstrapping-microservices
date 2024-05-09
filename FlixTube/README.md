@@ -36,12 +36,12 @@ Azure K8S
 
 * Set up kube context:
 ```bash
-az aks get-credentials --resource-group ascarlat-learning --name ascarlat-k8s
+az aks get-credentials --resource-group ascarlat_learning --name ascarlat
 ```
 
 * Attach the container registry to the cluster:
 ```bash
-az aks update --resource-group ascarlat-learning --name ascarlat-k8s --attach-acr ascarlat
+az aks update --resource-group ascarlat_learning --name ascarlat --attach-acr ascarlat
 ```
 
 * Create the global-config map:

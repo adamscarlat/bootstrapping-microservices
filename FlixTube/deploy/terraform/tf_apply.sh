@@ -1,0 +1,4 @@
+terraform import azurerm_resource_group.ascarlat_learning /subscriptions/b1727ba9-866b-4deb-af19-afeaa4644c88/resourceGroups/ascarlat_learning
+terraform import azurerm_container_registry.container_registry /subscriptions/b1727ba9-866b-4deb-af19-afeaa4644c88/resourceGroups/ascarlat_learning/providers/Microsoft.ContainerRegistry/registries/ascarlat
+
+terraform apply

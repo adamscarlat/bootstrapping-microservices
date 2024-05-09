@@ -1,0 +1,4 @@
+terraform state rm azurerm_resource_group.ascarlat_learning
+terraform state rm azurerm_container_registry.container_registry
+
+terraform destroy
