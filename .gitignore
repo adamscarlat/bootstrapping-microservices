@@ -134,3 +134,4 @@ dist
 .tmp
 .terraform
 terraform.tfstate*
+kube_tmp

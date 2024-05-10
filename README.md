@@ -59,3 +59,11 @@ Github Actions
 ```bash
 git update-index --chmod=+x hello.sh
 ```
+
+* `KUBE_CONFIG` must be set up as an actions secret (different per cluster)
+  - The image registry secrets should also be set but those dont change
+  - To add the kube_config to the secrets, first base64 it, then add it as a secret:
+
+```bash
+cat ~/.kube/config | base64 > kube_tmp
+```

@@ -28,24 +28,20 @@ jobs:
       NAME: video-streaming
       DIRECTORY: video-streaming    
     steps:
+      # Build and publish the image
       - uses: actions/checkout@v3
       - run: ./scripts/cd/image-build.sh
-
+      
       - name: Publish
         run: ./scripts/cd/image-push.sh
 
-      # #
-      # # Installs Kubectl and connects it to the cluster.
-      # #
-      # # https://github.com/marketplace/actions/kubernetes-cli-kubectl
-      # #
-      # - uses: tale/kubectl-action@v1
-      #   with:
-      #     base64-kube-config: ${{ secrets.KUBE_CONFIG }}
-      #     kubectl-version: v1.24.2
+      # Installs Kubectl and connects it to the cluster.
+      # https://github.com/marketplace/actions/kubernetes-cli-kubectl
+      - uses: tale/kubectl-action@v1
+        with:
+          base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+          kubectl-version: v1.29.4
       
-      # #
-      # # Expands the configuration template and deploys the microservice.
-      # #
-      # - name: Deploy
-      #   run: ./scripts/cd/deploy.sh
+      # Expands the configuration template and deploys the microservice.
+      - name: Deploy
+        run: ./scripts/cd/deploy.sh
