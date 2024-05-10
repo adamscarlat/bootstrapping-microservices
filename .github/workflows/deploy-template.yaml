@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+env:
+  VERSION: ${{ github.run_id }}
+  CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
+  REGISTRY_UN: ${{ secrets.REGISTRY_UN }}
+  REGISTRY_PW: ${{ secrets.REGISTRY_PW  }}
+
 jobs:
   deploy-service:
     runs-on: ubuntu-latest 
