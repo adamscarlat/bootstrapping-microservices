@@ -25,19 +25,21 @@ jobs:
       REGISTRY_PW: ${{ secrets.REGISTRY_PW  }}      
     steps:
       # Build and publish the image
-      - uses: actions/checkout@v3
-      - run: ./scripts/cd/image-build.sh
-      
-      - name: Publish
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build image
+        run: ./scripts/cd/image-build.sh
+      - name: Publish image
         run: ./scripts/cd/image-push.sh
 
       # Installs Kubectl and connects it to the cluster.
       # https://github.com/marketplace/actions/kubernetes-cli-kubectl
-      - uses: tale/kubectl-action@v1
+      - name: Setup kubectl
+        uses: tale/kubectl-action@v1
         with:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
           kubectl-version: v1.29.4
       
       # Expands the configuration template and deploys the microservice.
-      - name: Deploy
+      - name: Deploy service
         run: ./scripts/cd/deploy.sh
