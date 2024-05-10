@@ -11,9 +11,20 @@ env:
   REGISTRY_UN: ${{ secrets.REGISTRY_UN }}
   REGISTRY_PW: ${{ secrets.REGISTRY_PW  }}
 
+inputs:
+  NAME:
+    description: 'Service name'
+    required: true
+  DIRECTORY:
+    description: 'Service directory'
+    required: true    
+
 jobs:
   deploy-service:
     runs-on: ubuntu-latest 
+    env:
+      NAME: "${{ inputs.NAME }}"
+      DIRECTORY: "${{ inputs.DIRECTORY }}"    
     steps:
       # Build and publish the image
       - uses: actions/checkout@v3
