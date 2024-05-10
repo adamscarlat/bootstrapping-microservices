@@ -11,12 +11,19 @@ on:
         description: 'Service directory'
         required: true   
         type: string
+    secrets:
+      CONTAINER_REGISTRY: 
+        description: "Container registry host"
+        required: true
+      REGISTRY_UN: 
+        description: "Container registry username"
+        required: true
+      REGISTRY_PW: 
+        description: "Container registry username"
+        required: true        
 
 env:
   VERSION: ${{ github.run_id }}
-  CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
-  REGISTRY_UN: ${{ secrets.REGISTRY_UN }}
-  REGISTRY_PW: ${{ secrets.REGISTRY_PW  }}
 
 jobs:
   deploy-service:
