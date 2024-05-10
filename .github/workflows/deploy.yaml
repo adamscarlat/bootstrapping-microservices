@@ -16,7 +16,7 @@ on:
   workflow_dispatch: 
 
 env:
-  VERSION: ${GITHUB_SHA::6}
+  VERSION: ${{ github.run_id }}
   CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
   REGISTRY_UN: ${{ secrets.REGISTRY_UN }}
   REGISTRY_PW: ${{ secrets.REGISTRY_PW  }}
