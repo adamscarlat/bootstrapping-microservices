@@ -29,7 +29,7 @@ jobs:
         env:
           NAME: video-streaming
           DIRECTORY: video-streaming
-      - run: ./scripts/cd/build-image.sh
+      - run: ./scripts/cd/image-build.sh
 
       # #
       # # Publishes the Docker image to the container registry.
