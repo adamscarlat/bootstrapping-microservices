@@ -2,4 +2,4 @@ import dotenv
 import sys
 
 sys.path.extend([".", "./src"])
-dotenv.load_dotenv()
+dotenv.load_dotenv("./test/test.env")
