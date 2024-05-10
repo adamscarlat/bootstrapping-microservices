@@ -19,6 +19,9 @@ Docs
   - https://itracer.medium.com/rabbitmq-publisher-and-consumer-with-fastapi-175fe87aefe1
   - https://aio-pika.readthedocs.io/en/latest/rabbitmq-tutorial/3-publish-subscribe.html
 
+* Pytest
+  - https://docs.pytest.org/en/latest/explanation/goodpractices.html#choosing-a-test-layout-import-rules
+
 Docker
 ------
 * Build for linux/amd64 (required when building and pushing from M2 Mac):
@@ -47,4 +50,12 @@ az aks update --resource-group ascarlat_learning --name ascarlat --attach-acr as
 * Create the global-config map:
 ```bash
 kubectl create configmap global-env --from-env-file=.env
+```
+
+Github Actions
+--------------
+* Making a script executable before pushing it to git:
+
+```bash
+git update-index --chmod=+x hello.sh
 ```
