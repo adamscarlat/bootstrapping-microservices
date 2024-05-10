@@ -8,6 +8,6 @@ on:
       
 jobs:
   video-streaming:
-    uses: ./.github/workflows/job-templates/build-template.yaml
+    uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: video-streaming 
