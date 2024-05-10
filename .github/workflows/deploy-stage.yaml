@@ -18,6 +18,7 @@ on:
 jobs:
   deploy-video-streaming:
     uses: ./.github/workflows/deploy-template.yaml
+    secrets: inherit
     with:
       NAME: video-streaming
       DIRECTORY: video-streaming    
