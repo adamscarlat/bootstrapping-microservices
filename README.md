@@ -1,6 +1,6 @@
 Dev notes
 ---------
-* Book: 5.8.6
+* Book: 8.7.4
 
 Temp
 ----
