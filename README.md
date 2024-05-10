@@ -42,7 +42,7 @@ Azure K8S
 az aks get-credentials --resource-group ascarlat_learning --name ascarlat
 ```
 
-* Attach the container registry to the cluster:
+* (NOT NEEDED) Attach the container registry to the cluster (not needed if configured via tf):
 ```bash
 az aks update --resource-group ascarlat_learning --name ascarlat --attach-acr ascarlat
 ```

@@ -1,0 +1,54 @@
+# 
+# GitHub Actions workflow.
+#
+# Automatically deploys the Node.js microservice to Kubernetes on push to the main branch.
+# For real use you might want to restrict this to the "prod" branch.
+#
+
+name: Deploy microservice
+
+on:
+  # Deploys the microservice on push to the specified subdirectory in the main branch of this code repository.
+  push: 
+    branches:
+      - main
+  # Allows deployment to be invoked manually through the GitHub Actions user interface.
+  workflow_dispatch: 
+
+env:
+  VERSION: ${{ github.sha }}
+  CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
+  REGISTRY_UN: ${{ secrets.REGISTRY_UN }}
+  REGISTRY_PW: ${{ secrets.REGISTRY_PW  }}
+
+jobs:
+  deploy-video-streaming:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        env:
+          NAME: video-streaming
+          DIRECTORY: video-streaming
+      - run: ./scripts/cd/build-image.sh
+
+      # #
+      # # Publishes the Docker image to the container registry.
+      # #
+      # - name: Publish
+      #   run: ./scripts/cd/push-image.sh
+
+      # #
+      # # Installs Kubectl and connects it to the cluster.
+      # #
+      # # https://github.com/marketplace/actions/kubernetes-cli-kubectl
+      # #
+      # - uses: tale/kubectl-action@v1
+      #   with:
+      #     base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+      #     kubectl-version: v1.24.2
+      
+      # #
+      # # Expands the configuration template and deploys the microservice.
+      # #
+      # - name: Deploy
+      #   run: ./scripts/cd/deploy.sh

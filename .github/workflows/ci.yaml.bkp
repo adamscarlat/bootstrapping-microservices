@@ -7,7 +7,7 @@ on:
       - main
       
 jobs:
-  build:
+  build_video-streaming:
     runs-on: ubuntu-latest
 
     steps:
