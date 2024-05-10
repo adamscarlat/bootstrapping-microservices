@@ -11,7 +11,7 @@ on:
   # Deploys the microservice on push to the specified subdirectory in the main branch of this code repository.
   push: 
     branches:
-      - main
+      - main    
   # Allows deployment to be invoked manually through the GitHub Actions user interface.
   workflow_dispatch: 
 

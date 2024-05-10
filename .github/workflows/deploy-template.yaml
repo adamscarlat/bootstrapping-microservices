@@ -1,23 +1,22 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      NAME:
+        description: 'Service name'
+        required: true
+        type: string
+      DIRECTORY:
+        description: 'Service directory'
+        required: true   
+        type: string
 
 env:
   VERSION: ${{ github.run_id }}
   CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
   REGISTRY_UN: ${{ secrets.REGISTRY_UN }}
   REGISTRY_PW: ${{ secrets.REGISTRY_PW  }}
-
-inputs:
-  NAME:
-    description: 'Service name'
-    required: true
-  DIRECTORY:
-    description: 'Service directory'
-    required: true    
 
 jobs:
   deploy-service:
