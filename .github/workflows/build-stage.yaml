@@ -1,0 +1,13 @@
+name: Build
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - '*'
+      
+jobs:
+  video-streaming:
+    uses: ./.github/workflows/job-templates/build-template.yaml
+    with:
+      DIRECTORY: video-streaming 

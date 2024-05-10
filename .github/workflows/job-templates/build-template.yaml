@@ -1,0 +1,20 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      DIRECTORY:
+        description: 'Service directory'
+        required: true   
+        type: string
+
+jobs:
+  build-service:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - run: |
+        cd {{ inputs.DIRECTORY }}
+        pip install -r requirements.txt
+        pytest

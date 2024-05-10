@@ -14,6 +14,7 @@ on:
         
 jobs:
   deploy-service:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest 
     env:
       NAME: "${{ inputs.NAME }}"
