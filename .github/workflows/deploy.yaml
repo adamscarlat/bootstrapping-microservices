@@ -24,11 +24,11 @@ env:
 jobs:
   deploy-video-streaming:
     runs-on: ubuntu-latest
+    env:
+      NAME: video-streaming
+      DIRECTORY: video-streaming    
     steps:
       - uses: actions/checkout@v3
-        env:
-          NAME: video-streaming
-          DIRECTORY: video-streaming
       - run: ./scripts/cd/image-build.sh
 
       # #
