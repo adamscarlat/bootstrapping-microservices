@@ -11,3 +11,8 @@ jobs:
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: video-streaming 
+  metadata:
+    uses: ./.github/workflows/build-template.yaml
+    with:
+      DIRECTORY: metadata 
+

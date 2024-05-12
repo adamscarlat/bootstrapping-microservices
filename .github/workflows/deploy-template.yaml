@@ -41,5 +41,5 @@ jobs:
           kubectl-version: v1.29.4
       
       # Expands the configuration template and deploys the microservice.
-      - name: Deploy service
-        run: ./scripts/cd/deploy.sh
+      # - name: Deploy service
+      #   run: ./scripts/cd/deploy.sh
