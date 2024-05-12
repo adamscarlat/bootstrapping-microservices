@@ -21,6 +21,18 @@ on:
   workflow_dispatch: 
 
 jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: docker-compose up -f docker-compose-prod.yml up --build
+      - name: Run the tests
+        run: |
+          cd tests/integration
+          pip install -r requirements.txt
+          pytest -s
+
   deploy-video-streaming:
     uses: ./.github/workflows/deploy-template.yaml
     secrets: inherit
