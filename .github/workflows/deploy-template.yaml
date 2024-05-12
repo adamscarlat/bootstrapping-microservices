@@ -13,6 +13,23 @@ on:
         type: string
         
 jobs:
+  integration-tests:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    env:
+      STORAGE_ACCESS_KEY: ${{ secrets.STORAGE_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: |
+          cp tests/integration/test.env ./.env
+          docker-compose -f docker-compose-prod.yml up --build -d
+      - name: Run the tests
+        run: |
+          cd tests/integration
+          pip install -r requirements.txt
+          pytest -s 
+
   deploy-service:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest 
