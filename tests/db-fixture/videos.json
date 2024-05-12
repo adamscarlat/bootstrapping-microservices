@@ -2,5 +2,9 @@
   {
     "id": "1",
     "videoPath" : "SampleVideo_1280x720_5mb.mp4"
+  },
+  {
+    "id": "2",
+    "videoPath" : "SampleVideo_1280x720_5mb.mp4"
   }
 ]

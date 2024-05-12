@@ -14,7 +14,7 @@ async def test_stream_video():
     assert stream_response.status_code == 307
 
     # Wait for async bus message to settle
-    await asyncio.sleep(1)
+    await asyncio.sleep(2)
 
     database = db.get_database_client()
     history_collection = database.get_collection("history")

@@ -11,6 +11,7 @@ def pytest_sessionstart(session):
     before performing collection and entering the run test loop.
     """
     print ("HERE: pytest_sessionstart")
+    db.clean_db()
     db.seed_db()
 
 def pytest_sessionfinish(session, exitstatus):

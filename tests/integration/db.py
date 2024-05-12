@@ -3,6 +3,8 @@ import json
 import environment
 from motor.motor_asyncio import AsyncIOMotorDatabase, AsyncIOMotorCollection, AsyncIOMotorClient
 
+db_fixture_path = "../db-fixture/videos.json"
+
 def get_database_client():
   mongo_uri = f"mongodb://{environment.DB_USERNAME}:{environment.DB_PASSWORD}@{environment.DBHOST}:{environment.DBPORT}"
   print (mongo_uri)
@@ -10,10 +12,10 @@ def get_database_client():
   database = client[environment.DBNAME]
   
   return database
-  
+
 def seed_db():
   database: AsyncIOMotorDatabase = get_database_client()
-  with open("db-fixture/videos.json") as f:
+  with open(db_fixture_path) as f:
     data = json.load(f)
   
   collection = database.get_collection("videos")
@@ -26,7 +28,7 @@ def seed_db():
 
 def clean_db():
   database: AsyncIOMotorDatabase = get_database_client()
-  with open("db-fixture/videos.json") as f:
+  with open(db_fixture_path) as f:
     data = json.load(f)
   
   database.drop_collection("videos")

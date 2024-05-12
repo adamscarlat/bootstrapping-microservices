@@ -137,3 +137,7 @@ dist
 .terraform
 terraform.tfstate*
 kube_tmp
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

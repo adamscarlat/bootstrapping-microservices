@@ -1,6 +1,7 @@
 import json
 import httpx
 import pytest
+from db import db_fixture_path
 
 @pytest.mark.asyncio
 async def test_get_videos():
@@ -9,10 +10,10 @@ async def test_get_videos():
     response = await client.get(url)
     assert response.status_code == 200
 
-    with open("db-fixture/videos.json") as f:
+    with open(db_fixture_path) as f:
       expected_data = json.load(f)
 
-    actual_data = json.loads(response.content)
+    actual_data = json.loads(response.content)["videos"]
 
     assert len(actual_data) == len(expected_data)
 
