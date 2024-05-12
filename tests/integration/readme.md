@@ -3,7 +3,7 @@ Running the integration tests
 * First run compose:
 
 ```bash
-docker-compose -f ../docker-compose-prod.yml --build up
+docker-compose -f ../../docker-compose-dev.yml up --build -d
 ```
 
 * Run the tests with pytest:

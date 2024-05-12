@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>FlixTube: Home</title>
+
+        <link rel="stylesheet" href="css/tailwind.min.css">
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body>
+        <div class="flex flex-col">
+            <div class="border-b-2 bg-gray-100">
+                <div class="nav flex flex-row items-center mt-1 p-2">
+                    <div class="text-xl font-bold">
+                        FlixTube
+                    </div>
+                    <div class="ml-16 border-b-2 border-blue-600">
+                        <a href="/">Videos</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-4">
+                <h1>Videos</h1>
+                <div id="video-list" class="m-4">
+                    {{#if videos}}
+                        {{#each videos}}
+                            <div class="mt-1">
+                                <a href="/video?id={{this.id}}">{{this.videoPath}}</a> 
+                            </div>
+                        {{/each}}
+                    {{else}}
+                        No videos uploaded yet.
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
