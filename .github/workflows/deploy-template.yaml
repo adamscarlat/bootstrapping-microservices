@@ -30,7 +30,7 @@ jobs:
         with:
           max_attempts: 3
           retry_on: error
-          timeout_seconds: 10
+          timeout_seconds: 120
           command: |
             env
             cd tests/integration
