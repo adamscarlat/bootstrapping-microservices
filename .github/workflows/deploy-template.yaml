@@ -24,6 +24,7 @@ jobs:
         run: |
           cp tests/integration/test.env ./.env
           docker-compose -f docker-compose-prod.yml up --build -d
+          sleep(10)
       - name: Run the tests
         run: |
           cd tests/integration
