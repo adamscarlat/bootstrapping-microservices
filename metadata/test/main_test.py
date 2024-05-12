@@ -22,7 +22,7 @@ client = TestClient(app)
 
 def test_get_videos():
   response = client.get("/videos")
-  videos = json.loads(response.content)
+  videos = json.loads(response.content)["videos"]
   video = videos[0]
 
   assert video["id"] == "1" and video["videoPath"] == "SampleVideo_1280x720_5mb.mp4"
