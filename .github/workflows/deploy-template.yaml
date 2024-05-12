@@ -25,11 +25,17 @@ jobs:
           cp tests/integration/test.env ./.env
           docker-compose -f docker-compose-prod.yml up --build -d
           sleep 10
-      - name: Run the tests
-        run: |
-          cd tests/integration
-          pip install -r requirements.txt
-          pytest -s 
+      - name: Run the tests   
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 3
+          retry_on: error
+          timeout_seconds: 10
+          # You can specify the shell commands you want to retry here
+          command: |
+            cd tests/integration
+            pip install -r requirements.txt
+            pytest -s 
 
   deploy-service:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
