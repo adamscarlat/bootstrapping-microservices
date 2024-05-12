@@ -16,5 +16,9 @@ async def get_videos(db_client: AsyncIOMotorDatabase = Depends(db.get_database_c
 
   return videos
 
+@app.get("/test")
+async def get_videos():
+  return "hello"
+
 if __name__ == "__main__":
   environment.start_app()

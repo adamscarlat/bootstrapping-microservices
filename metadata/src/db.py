@@ -2,6 +2,7 @@ import environment
 from motor.motor_asyncio import AsyncIOMotorDatabase, AsyncIOMotorCollection, AsyncIOMotorClient
 
 async def get_database_client():
+  print ("HERE: get_database_client")
   mongo_uri = f"mongodb://{environment.DB_USERNAME}:{environment.DB_PASSWORD}@{environment.DBHOST}"
   client = AsyncIOMotorClient(mongo_uri)
   database = client[environment.DBNAME]
