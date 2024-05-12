@@ -31,8 +31,8 @@ jobs:
           max_attempts: 3
           retry_on: error
           timeout_seconds: 10
-          # You can specify the shell commands you want to retry here
           command: |
+            env
             cd tests/integration
             pip install -r requirements.txt
             pytest -s 
