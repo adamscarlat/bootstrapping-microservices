@@ -100,6 +100,22 @@ services:
       db:
         condition: service_started   
 
+  gateway:
+    image: gateway
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile-dev
+    container_name: gateway
+    ports:
+      - 9000:80
+    env_file:
+      - .env
+    environment:  
+      - DEV=0      
+    depends_on:
+      video-streaming:
+        condition: service_started 
+
 volumes:
   mongodb_data:
   rabbitmq_data:

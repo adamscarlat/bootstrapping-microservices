@@ -120,7 +120,7 @@ services:
     env_file:
       - .env
     depends_on:
-      db:
+      video-streaming:
         condition: service_started     
 
 volumes:
