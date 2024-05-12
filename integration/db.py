@@ -30,4 +30,6 @@ def clean_db():
     data = json.load(f)
   
   database.drop_collection("videos")
+  database.drop_collection("history")
+
 
