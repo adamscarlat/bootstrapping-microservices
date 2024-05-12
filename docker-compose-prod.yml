@@ -84,6 +84,21 @@ services:
       db:
         condition: service_started 
 
+  metadata:
+    image: metadata
+    build:
+      context: ./metadata
+      dockerfile: dockerfile-prod
+    container_name: metadata
+    ports:
+      - 8004:80
+    env_file:
+      - .env
+    environment:  
+      - DEV=0      
+    depends_on:
+      db:
+        condition: service_started   
 
 volumes:
   mongodb_data:

@@ -1,6 +1,6 @@
 Dev notes
 ---------
-* Book: 8.7.4
+* Book: ch 9
 
 Temp
 ----
@@ -54,6 +54,8 @@ kubectl create configmap global-env --from-env-file=.env
 
 Github Actions
 --------------
+* Use `act` to test github actions locally
+
 * Making a script executable before pushing it to git:
 
 ```bash
@@ -67,3 +69,4 @@ git update-index --chmod=+x hello.sh
 ```bash
 cat ~/.kube/config | base64 > kube_tmp
 ```
+

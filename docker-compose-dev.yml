@@ -89,6 +89,23 @@ services:
       db:
         condition: service_started 
 
+  metadata:
+    image: metadata
+    build:
+      context: ./metadata
+      dockerfile: dockerfile-dev
+    container_name: metadata
+    volumes:
+      - ./.tmp/metadata/pip-cache:/root/pip-cache
+      - ./metadata/src:/app/src:z
+    ports:
+      - 8004:80
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_started         
+
 volumes:
   mongodb_data:
   rabbitmq_data:

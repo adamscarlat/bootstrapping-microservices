@@ -46,6 +46,15 @@
       "envFile": "${workspaceFolder}/recommendations/.env",
       "cwd": "${workspaceFolder}/recommendations",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Metadata Server",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/metadata/src/main.py",
+      "envFile": "${workspaceFolder}/metadata/.env",
+      "cwd": "${workspaceFolder}/metadata",
+      "console": "integratedTerminal"
     }
   ]
 }
