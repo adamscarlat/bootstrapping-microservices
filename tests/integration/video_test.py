@@ -30,5 +30,8 @@ async def test_stream_video():
     redirect_url = f"http://localhost:{video_streaming_port}{redirect_location}"
     print (redirect_url)
     download_response = await client.get(redirect_url)
+    
+    if download_response.status_code != 200:
+      print (download_response.content)
     assert download_response.status_code == 200
     
