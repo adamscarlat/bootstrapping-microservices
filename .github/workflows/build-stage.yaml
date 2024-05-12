@@ -20,7 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: docker-compose -f docker-compose-prod.yml up --build
+        run: |
+          cp tests/integration/test.env ./.env
+          docker-compose -f docker-compose-prod.yml up --build
       - name: Run the tests
         run: |
           cd tests/integration
