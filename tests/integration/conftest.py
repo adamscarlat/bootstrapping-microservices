@@ -1,7 +1,6 @@
-import asyncio
 import dotenv
 dotenv.load_dotenv("../.env")
-
+dotenv.load_dotenv("./test.env")
 
 import db
 
