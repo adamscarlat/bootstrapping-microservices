@@ -24,7 +24,7 @@ jobs:
         run: |
           cp tests/integration/test.env ./.env
           docker-compose -f docker-compose-prod.yml up --build -d
-          sleep(10)
+          sleep 10
       - name: Run the tests
         run: |
           cd tests/integration
@@ -33,6 +33,7 @@ jobs:
 
   deploy-service:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: integration-tests
     runs-on: ubuntu-latest 
     env:
       NAME: "${{ inputs.NAME }}"
