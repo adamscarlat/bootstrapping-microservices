@@ -28,8 +28,25 @@ async def get_history(db_client: AsyncIOMotorDatabase = Depends(db.get_database_
   fields = {"_id": 0, "id": 1, "video_path": 1}
 
   history_items = await db_client.get_collection("history").find(projection=fields).to_list(length=None)
+  
+  history_counts = {}
+  for item in history_items:
+     if item["id"] not in history_counts:
+        history_counts[item["id"]] = 0
+     history_counts[item["id"]] += 1
+
+  counted_items = []
+  for id in history_counts.keys():
+     for item in history_items:
+        if item["id"] == id:
+           item["count"] = history_counts[id]
+           counted_items.append(item)
+           break
+  
+  print (counted_items)
+
   return {
-     "history": history_items
+     "history": counted_items
   }
   
 

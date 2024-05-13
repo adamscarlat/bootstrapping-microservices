@@ -32,8 +32,9 @@
                 <div class="m-4">
                     <table>
                         <tr>
-                            <th class="border-2 p-1 pl-2 pr-2">Video id</th>
-                            <th class="border-2 p-1 pl-2 pr-2">Date watched</th>
+                            <th class="border-2 p-1 pl-2 pr-2">Video Id</th>
+                            <th class="border-2 p-1 pl-2 pr-2">Video Name</th>
+                            <th class="border-2 p-1 pl-2 pr-2">Count</th>
                         </tr>
                         {{#each videos}}
                             <tr class="mt-1">
@@ -42,6 +43,9 @@
                                 </td>
                                 <td class="border-2 p-1 pl-2 pr-2">
                                     {{this.video_path}}
+                                </td>
+                                <td class="border-2 p-1 pl-2 pr-2">
+                                    {{this.count}}
                                 </td>
                             </tr>
                         {{/each}}
