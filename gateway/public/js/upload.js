@@ -15,12 +15,14 @@ function uploadFiles(files) {
 function uploadFile(file) {
 
     const uploadRoute = `/api/upload`;
+    const formData = new FormData();
+    formData.append('file', file); // Get the file from an input element
+
     fetch(uploadRoute, {
-            body: file,
+            body: formData,
             method: "POST",
             headers: {
-                "File-Name": file.name,
-                "Content-Type": file.type,
+                "file-name": file.name,
             },
         })
         .then(() => { 

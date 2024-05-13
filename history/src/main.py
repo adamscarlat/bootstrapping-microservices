@@ -24,8 +24,14 @@ async def lifespan(_: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 @app.get("/history")
-async def get_history():
-  return "hello computer!"
+async def get_history(db_client: AsyncIOMotorDatabase = Depends(db.get_database_client)):
+  fields = {"_id": 0, "id": 1, "video_path": 1}
+
+  history_items = await db_client.get_collection("history").find(projection=fields).to_list(length=None)
+  return {
+     "history": history_items
+  }
+  
 
 @app.post("/viewed")
 async def post_viewed(data: ViewedVideoMessage, 

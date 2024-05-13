@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>FlixTube: Home</title>
+        <title>FlixTube: History</title>
 
         <link rel="stylesheet" href="css/tailwind.min.css">
         <link rel="stylesheet" href="css/app.css">
@@ -15,30 +15,37 @@
                     <div class="text-xl font-bold">
                         FlixTube
                     </div>
-                    <div class="ml-16 border-b-2 border-blue-600">
+                    <div class="ml-16">
                         <a href="/">Videos</a>
                     </div>
                     <div class="ml-4">
                         <a href="/upload">Upload</a>
                     </div>
-                    <div class="ml-4">
+                    <div class="ml-4 border-b-2 border-blue-600">
                         <a href="/history">History</a>
                     </div>
                 </div>
             </div>
 
             <div class="m-4">
-                <h1>Videos</h1>
-                <div id="video-list" class="m-4">
-                    {{#if videos}}
+	            <h1>Viewing history</h1>
+                <div class="m-4">
+                    <table>
+                        <tr>
+                            <th class="border-2 p-1 pl-2 pr-2">Video id</th>
+                            <th class="border-2 p-1 pl-2 pr-2">Date watched</th>
+                        </tr>
                         {{#each videos}}
-                            <div class="mt-1">
-                                <a href="/video?id={{this.id}}">{{this.videoPath}}</a> 
-                            </div>
+                            <tr class="mt-1">
+                                <td class="border-2 p-1 pl-2 pr-2">
+                                    <a href="/video?id={{this.id}}">{{this.id}}</a> 
+                                </td>
+                                <td class="border-2 p-1 pl-2 pr-2">
+                                    {{this.video_path}}
+                                </td>
+                            </tr>
                         {{/each}}
-                    {{else}}
-                        No videos uploaded yet.
-                    {{/if}}
+                    </table>
                 </div>
             </div>
         </div>

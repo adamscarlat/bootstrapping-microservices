@@ -1,7 +1,9 @@
 import environment
+import db
 
-from fastapi import FastAPI, Response
+from fastapi import Depends, FastAPI, Response, UploadFile, File, Request
 from storage import create_blob_service_client, download_blob
+from motor.motor_asyncio import AsyncIOMotorDatabase
 
 app = FastAPI()
 
@@ -23,6 +25,29 @@ async def get_video(path: str):
         "Content-Length": str(video_properties.size)
        }
     )
+
+@app.post("/upload")
+async def post_video(request: Request, db_client: AsyncIOMotorDatabase = Depends(db.get_database_client)):
+  form = await request.form()
+  
+  contents = form["file"].file.read()
+
+  file_name = form["fileName"]
+
+  container_name = "videos"
+  blob_service_client = create_blob_service_client()
+  container_client = blob_service_client.get_container_client(container_name)
+  blob_client = container_client.get_blob_client(file_name)
+
+  blob_client.upload_blob(contents)
+
+  collection = db_client.get_collection("videos")
+  doc_count = await collection.count_documents({})
+  await collection.insert_one({
+     "id": str(doc_count + 1),
+     "videoPath": file_name
+  })
+
 
 if __name__ == "__main__":
   environment.start_app()
