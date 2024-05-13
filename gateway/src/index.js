@@ -69,13 +69,23 @@ async function startMicroservice(dbhost, dbname) {
         const headers = {
             'content-type': 'multipart/form-data',
         }
-        const response = await axios({
-            method: "POST",
-            url,
-            data: formData,
-            headers
-        })
-        response.data.pipe(res);
+        try {
+            const response = await axios({
+                method: "POST",
+                url,
+                data: formData,
+                headers
+            })
+            res.status(200).send()
+        } catch (error) {
+            if (error.response && error.response.status === 409) {
+                console.error('Resource already exists');
+                res.status(409).send('Resource already exists');
+            } else {
+                console.error('Error:', error.message);
+            }
+        }
+
     });
 
     // Web page to show the users viewing history.

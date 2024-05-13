@@ -25,16 +25,20 @@ function uploadFile(file) {
                 "file-name": file.name,
             },
         })
-        .then(() => { 
-            //
-            // Display that the upload has completed.
-            //
+        .then((res) => { 
             const resultsElement = document.getElementById("results");
-            resultsElement.innerHTML +=  `<div>${file.name}</div>`;
 
-            //
+            if (res.status == 409) {
+                resultsElement.innerHTML +=  `<div>Upload failed: resource already exists</div>`;
+                return;
+            }
+
+            console.log(`Upload complete: ${file.name}`);
+            
+            // Display that the upload has completed.
+            resultsElement.innerHTML +=  `<div>${file.name}</div>`;
+            
             // Clear the file form the upload input.
-            //
             const uploadInput = document.getElementById("uploadInput");
             uploadInput.value = null;
         })

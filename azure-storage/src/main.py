@@ -1,9 +1,10 @@
 import environment
 import db
 
-from fastapi import Depends, FastAPI, Response, UploadFile, File, Request
+from fastapi import Depends, FastAPI, HTTPException, Response, UploadFile, File, Request
 from storage import create_blob_service_client, download_blob
 from motor.motor_asyncio import AsyncIOMotorDatabase
+from azure.core.exceptions import ResourceExistsError
 
 app = FastAPI()
 
@@ -39,7 +40,10 @@ async def post_video(request: Request, db_client: AsyncIOMotorDatabase = Depends
   container_client = blob_service_client.get_container_client(container_name)
   blob_client = container_client.get_blob_client(file_name)
 
-  blob_client.upload_blob(contents)
+  try:
+    blob_client.upload_blob(contents)
+  except ResourceExistsError as e:
+    raise HTTPException(status_code=409, detail="Item with the same name already exists")
 
   collection = db_client.get_collection("videos")
   doc_count = await collection.count_documents({})
@@ -47,6 +51,8 @@ async def post_video(request: Request, db_client: AsyncIOMotorDatabase = Depends
      "id": str(doc_count + 1),
      "videoPath": file_name
   })
+
+  return {"uploadComplete": True}
 
 
 if __name__ == "__main__":
