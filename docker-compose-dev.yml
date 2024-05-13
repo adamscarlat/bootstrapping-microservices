@@ -70,25 +70,6 @@ services:
       db:
         condition: service_started 
 
-  recommendations:
-    image: recommendations
-    build:
-      context: ./recommendations
-      dockerfile: dockerfile-dev
-    container_name: recommendations
-    volumes:
-      - ./.tmp/recommendations/pip-cache:/root/pip-cache
-      - ./recommendations/src:/app/src:z
-    ports:
-      - 8003:80
-    env_file:
-      - .env
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-      db:
-        condition: service_started 
-
   metadata:
     image: metadata
     build:
