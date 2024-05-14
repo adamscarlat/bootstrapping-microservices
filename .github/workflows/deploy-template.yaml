@@ -15,7 +15,6 @@ on:
         description: 'Service type'
         required: true   
         type: string  
-        default: ClusterIP
 
 jobs:
   integration-tests:

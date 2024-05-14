@@ -27,25 +27,32 @@ jobs:
     with:
       NAME: video-streaming
       DIRECTORY: video-streaming
+      SERVICE_TYPE: ClusterIP
 
   deploy-metadata:
     uses: ./.github/workflows/deploy-template.yaml
     secrets: inherit
     with:
       NAME: metadata
-      DIRECTORY: metadata    
+      DIRECTORY: metadata  
+      SERVICE_TYPE: ClusterIP
+
   deploy-history:
     uses: ./.github/workflows/deploy-template.yaml
     secrets: inherit
     with:
       NAME: history
-      DIRECTORY: history    
+      DIRECTORY: history
+      SERVICE_TYPE: ClusterIP
+
   deploy-azure-storage:
     uses: ./.github/workflows/deploy-template.yaml
     secrets: inherit
     with:
       NAME: azure-storage
-      DIRECTORY: azure-storage    
+      DIRECTORY: azure-storage
+      SERVICE_TYPE: ClusterIP
+
   deploy-gateway:
     uses: ./.github/workflows/deploy-template.yaml
     secrets: inherit

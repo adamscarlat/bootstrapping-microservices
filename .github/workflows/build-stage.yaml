@@ -26,6 +26,8 @@ jobs:
   gateway:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3    
       - name: gateway build and test
         run: |    
           cd gateway
