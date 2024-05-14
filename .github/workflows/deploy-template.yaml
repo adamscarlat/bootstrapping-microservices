@@ -18,8 +18,8 @@ on:
 
 jobs:
   deploy-service:
-    #if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    needs: integration-tests
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    #needs: integration-tests
     runs-on: ubuntu-latest 
     env:
       NAME: "${{ inputs.NAME }}"
