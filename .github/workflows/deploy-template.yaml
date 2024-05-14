@@ -11,7 +11,12 @@ on:
         description: 'Service directory'
         required: true   
         type: string
-        
+      SERVICE_TYPE:
+        description: 'Service type'
+        required: true   
+        type: string  
+        default: ClusterIP
+
 jobs:
   integration-tests:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -45,7 +50,8 @@ jobs:
     runs-on: ubuntu-latest 
     env:
       NAME: "${{ inputs.NAME }}"
-      DIRECTORY: "${{ inputs.DIRECTORY }}"    
+      DIRECTORY: "${{ inputs.DIRECTORY }}"
+      SERVICE_TYPE: "${{ inputs.SERVICE_TYPE }}"    
       VERSION: ${{ github.run_id }}
       CONTAINER_REGISTRY: ${{ secrets.CONTAINER_REGISTRY }}
       REGISTRY_UN: ${{ secrets.REGISTRY_UN }}
@@ -68,5 +74,5 @@ jobs:
           kubectl-version: v1.29.4
       
       # Expands the configuration template and deploys the microservice.
-      # - name: Deploy service
-      #   run: ./scripts/cd/deploy-service.sh
+      - name: Deploy service
+        run: ./scripts/cd/deploy-service.sh

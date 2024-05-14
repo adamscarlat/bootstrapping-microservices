@@ -28,6 +28,13 @@ docker build -f  ./dockerfile-prod --platform=linux/amd64  -t video-streaming:2 
 
 Azure K8S
 ---------
+* Build the cluster using tf:
+
+```bash
+cd ./scripts/terraform
+bash -x tf_apply.sh
+```
+
 * Cluster specs:
   - Worker node pool
     * B2

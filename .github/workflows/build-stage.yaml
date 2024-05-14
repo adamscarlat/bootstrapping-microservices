@@ -15,5 +15,18 @@ jobs:
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: metadata 
-     
-
+  history:
+    uses: ./.github/workflows/build-template.yaml
+    with:
+      DIRECTORY: history    
+  azure-storage:
+    uses: ./.github/workflows/build-template.yaml
+    with:
+      DIRECTORY: azure-storage
+  gateway:
+    runs-on: ubuntu-latest
+    steps:
+      - name: gateway build and test
+        run: |    
+          cd gateway
+          npm install
