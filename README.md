@@ -1,17 +1,14 @@
 Dev notes
 ---------
-* Book: ch 9
+* Book: ch 10.4.3
 
-Temp
+Todo
 ----
-* viewed video message:
+* Have the upload service publish a "videoUploaded" message via the bus and remove the code
+  that saves the video to the videos collection.
+  - Instead, have the metadata service pick up the message and save it to the videos collection.
 
-```json
-{
-"id":2,
-"video_path":"hey1"
-}
-```
+* Move common code to pypi packages
 
 Docs
 ----

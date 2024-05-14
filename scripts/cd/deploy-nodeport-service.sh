@@ -19,4 +19,4 @@ set -u # or set -o nounset
 : "$NAME"
 : "$VERSION"
 
-envsubst < ./scripts/kubernetes/deploy.yaml | kubectl apply -f -
+envsubst < ./scripts/kubernetes/deploy-nodeport-service.yaml | kubectl apply -f -

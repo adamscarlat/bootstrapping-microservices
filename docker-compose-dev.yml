@@ -21,7 +21,7 @@ services:
     build:
       context: ./azure-storage
       dockerfile: dockerfile-dev
-    container_name: video-storage
+    container_name: azure-storage
     volumes:
       - ./.tmp/azure-storage/pip-cache:/root/pip-cache
       - ./azure-storage/src:/app/src:z       
@@ -91,7 +91,7 @@ services:
     image: gateway
     build:
       context: ./gateway
-      dockerfile: Dockerfile-dev
+      dockerfile: dockerfile-dev
     container_name: gateway
     volumes:
       - ./.tmp/gateway/pip-cache:/root/pip-cache

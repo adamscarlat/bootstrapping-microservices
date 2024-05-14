@@ -41,7 +41,7 @@ metadata:
 spec:
   selector:
     app: $NAME
-  type: LoadBalancer
+  type: $SERVICE_TYPE
   ports:
     - protocol: TCP
       port: 80

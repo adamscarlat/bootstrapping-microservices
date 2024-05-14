@@ -24,6 +24,7 @@ def read_file(path: str):
 
 async def download_video(video_name: str):
   video_storage_url = f"http://{environment.VIDEO_STORAGE_HOST}:{environment.VIDEO_STORAGE_PORT}/video"
+  print (f"video_storage_url:  {video_storage_url}")
   async with httpx.AsyncClient() as client:
     return await client.get(video_storage_url, params={
        "path": video_name

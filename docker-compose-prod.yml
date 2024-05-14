@@ -21,7 +21,7 @@ services:
     build:
       context: ./azure-storage
       dockerfile: dockerfile-prod
-    container_name: video-storage 
+    container_name: azure-storage 
     ports:
       - "8001:80"
     env_file:
@@ -86,7 +86,7 @@ services:
     image: gateway
     build:
       context: ./gateway
-      dockerfile: Dockerfile-dev
+      dockerfile: dockerfile-dev
     container_name: gateway
     ports:
       - 9000:80
