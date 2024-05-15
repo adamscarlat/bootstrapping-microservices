@@ -13,7 +13,7 @@ cosmos_ops = CosmosDbOperations(
   environment.DB_USERNAME, 
   environment.DB_PASSWORD,
   "video-streaming"
-  )
+)
 
 @app.get("/video")
 async def redirect_to_url(id: str, db_client: AsyncIOMotorDatabase = Depends(cosmos_ops.get_database_client)):

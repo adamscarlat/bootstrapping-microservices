@@ -1,10 +1,17 @@
 import environment
-import db
 
 from fastapi import Depends, FastAPI, HTTPException, Response, UploadFile, File, Request
 from storage import create_blob_service_client, download_blob
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from azure.core.exceptions import ResourceExistsError
+from flixtube_common.cosmosdb.db_operations import CosmosDbOperations
+
+cosmos_ops = CosmosDbOperations(
+  environment.DBHOST, 
+  environment.DB_USERNAME, 
+  environment.DB_PASSWORD,
+  "video-streaming"
+)
 
 app = FastAPI()
 
@@ -28,7 +35,7 @@ async def get_video(path: str):
     )
 
 @app.post("/upload")
-async def post_video(request: Request, db_client: AsyncIOMotorDatabase = Depends(db.get_database_client)):
+async def post_video(request: Request, db_client: AsyncIOMotorDatabase = Depends(cosmos_ops.get_database_client)):
   form = await request.form()
   
   contents = form["file"].file.read()

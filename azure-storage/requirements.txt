@@ -1,3 +1,4 @@
+flixtube_common==0.*
 annotated-types==0.6.0
 anyio==4.3.0
 azure-core==1.30.1
