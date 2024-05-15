@@ -16,25 +16,35 @@ jobs:
           cd common
           pip install build twine
           python -m build
-          twine upload --username __token__ password "${{ secrets.PYPI_TOKEN }}"
+          twine upload --username __token__ --password "${{ secrets.PYPI_TOKEN }}"
 
   video-streaming:
+    needs: 
+      - common
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: video-streaming 
   metadata:
+    needs: 
+      - common
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: metadata 
   history:
+    needs: 
+      - common  
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: history    
   azure-storage:
+    needs: 
+      - common  
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: azure-storage
   gateway:
+    needs: 
+      - common  
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
