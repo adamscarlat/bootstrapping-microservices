@@ -32,27 +32,33 @@ jobs:
         run: |    
           cd gateway
           npm install
-  # integration-tests:
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     STORAGE_ACCESS_KEY: ${{ secrets.STORAGE_ACCESS_KEY }}
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Build the stack
-  #       run: |
-  #         cp tests/integration/test.env ./.env
-  #         echo -e "\nSTORAGE_ACCESS_KEY=${{ secrets.STORAGE_ACCESS_KEY }}" >> .env
-  #         cat .env
-  #         docker-compose -f docker-compose-prod.yml up --build -d
-  #         sleep 10
-  #     - name: Run the tests   
-  #       uses: nick-fields/retry@v2
-  #       with:
-  #         max_attempts: 3
-  #         retry_on: error
-  #         timeout_seconds: 120
-  #         command: |
-  #           env
-  #           cd tests/integration
-  #           pip install -r requirements.txt
-  #           pytest -s           
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs:
+      - video-streaming
+      - metadata
+      - history
+      - azure-storage
+      - gateway
+    env:
+      STORAGE_ACCESS_KEY: ${{ secrets.STORAGE_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: |
+          cp tests/integration/test.env ./.env
+          echo -e "\nSTORAGE_ACCESS_KEY=${{ secrets.STORAGE_ACCESS_KEY }}" >> .env
+          cat .env
+          docker-compose -f docker-compose-prod.yml up --build -d
+          sleep 10
+      - name: Run the tests   
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 3
+          retry_on: error
+          timeout_seconds: 120
+          command: |
+            env
+            cd tests/integration
+            pip install -r requirements.txt
+            pytest -s           
