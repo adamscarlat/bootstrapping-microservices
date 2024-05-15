@@ -7,6 +7,17 @@ on:
   workflow_dispatch:
       
 jobs:
+  common:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Common
+        run: |
+          cd common
+          pip install build twine
+          python -m build
+          twine upload --username __token__ password "${{ secrets.PYPI_TOKEN }}"
+
   video-streaming:
     uses: ./.github/workflows/build-template.yaml
     with:
