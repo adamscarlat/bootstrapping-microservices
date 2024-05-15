@@ -3,7 +3,7 @@ import os
 import environment
 import httpx
 
-from pika_client import PikaClient
+from flixtube_common.rabbitmq.pika_client import PikaClient
 
 def get_file_size(path: str):
   return os.path.getsize(path)
@@ -41,7 +41,13 @@ async def send_viewed_message(video_id: str, video_path: str):
 
 async def publish_viewed_message(id: str, video_path: str, exchange_name: str = "", queue_name: str = ""):
   loop = asyncio.get_running_loop()
-  pika_client = PikaClient(loop)
+  pika_client = PikaClient(
+    loop, 
+    environment.RABBIT_HOST, 
+    environment.RABBIT_PORT,
+    environment.RABBIT_USER,
+    environment.RABBIT_PASSWORD
+  )
 
   message = {
     "id": id,

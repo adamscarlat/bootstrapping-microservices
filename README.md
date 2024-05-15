@@ -56,6 +56,17 @@ az aks update --resource-group ascarlat_learning --name ascarlat --attach-acr as
 kubectl create configmap global-env --from-env-file=.env
 ```
 
+* Deploy cluster from local machine:
+  - Run the above steps to set up the cluster
+  - Run: 
+``` bash
+bash -x scripts/local-test/local-build-deploy.sh
+
+# Once cluster is running
+kubectl port-forward service/gateway 30000:80  
+```
+  
+
 Github Actions
 --------------
 * Use `act` to test github actions locally

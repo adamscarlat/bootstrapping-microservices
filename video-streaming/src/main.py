@@ -1,16 +1,23 @@
 import environment
-import db
 
 from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from video import download_video, publish_viewed_message, read_file
 from motor.motor_asyncio import AsyncIOMotorDatabase
+from flixtube_common.cosmosdb.db_operations import CosmosDbOperations
 
 app = FastAPI()
 
+cosmos_ops = CosmosDbOperations(
+  environment.DBHOST, 
+  environment.DB_USERNAME, 
+  environment.DB_PASSWORD,
+  "video-streaming"
+  )
+
 @app.get("/video")
-async def redirect_to_url(id: str, db_client: AsyncIOMotorDatabase = Depends(db.get_database_client)):
-  item = await db.get_item_by_id(db_client, "videos", id)
+async def redirect_to_url(id: str, db_client: AsyncIOMotorDatabase = Depends(cosmos_ops.get_database_client)):
+  item = await cosmos_ops.get_item_by_id(db_client, "videos", id)
   if not item or "videoPath" not in item:
      raise HTTPException(status_code=404, detail="Item not found")
   

@@ -1,12 +1,15 @@
 import json
 import aio_pika
-import environment
 
 from aio_pika import ExchangeType, Message, DeliveryMode
 
 class PikaClient:
-  def __init__(self, loop): 
+  def __init__(self, loop, host, port, username, password): 
     self.loop = loop
+    self.host = host
+    self.port = port
+    self.username = username
+    self.password = password
     
   async def send_direct(self, message: dict, queue_name: str):
     connection = await self.get_connection()
@@ -42,13 +45,38 @@ class PikaClient:
 
     await connection.close()
 
+  async def consume_exchange(self, exchange_name: str, process_callable, exchange_type = ExchangeType.FANOUT):
+    connection = await self.get_connection()
+    channel = await connection.channel()
+
+    exchange = await channel.declare_exchange(exchange_name, exchange_type)
+    
+    # Creates an anonymous queue that gets destroyed when this process exits
+    queue = await channel.declare_queue(exclusive=True)
+    await queue.bind(exchange)
+
+    self.process_callable = process_callable
+    await queue.consume(self.process_incoming_message, no_ack=False)
+
+    print (f'Established pika async listener - exchange connection: {exchange_name} of type: {exchange_type}')
+
+  async def process_incoming_message(self, message):
+    """Processing incoming message from RabbitMQ"""
+    
+    body = message.body
+    print ('Received message')
+    
+    if body:
+      await self.process_callable(json.loads(body))
+
+    await message.ack()
 
   async def get_connection(self):
     return await aio_pika.connect_robust(
-      host=environment.RABBIT_HOST,
-      port=environment.RABBIT_PORT,
-      login=environment.RABBIT_USER,
-      password=environment.RABBIT_PASSWORD,
+      host=self.host,
+      port=self.port,
+      login=self.username,
+      password=self.password,
       loop=self.loop
     )
 

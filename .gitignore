@@ -142,3 +142,5 @@ kube_tmp
 /blob-report/
 /playwright/.cache/
 gateway/uploads
+common/src/flixtube_common.egg-info
+common/build
