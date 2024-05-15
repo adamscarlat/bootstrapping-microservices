@@ -29,3 +29,9 @@ class CosmosDbOperations:
     item = await collection.find_one({"id": item_id})
 
     return item
+  
+  async def save_item(self, db_client: AsyncIOMotorDatabase, collection_name: str, item: dict):
+    collection = self.get_collection(db_client, collection_name)
+    saved = await collection.insert_one(item)
+
+    return saved  

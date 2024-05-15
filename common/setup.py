@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
   name = "flixtube_common",
-  version="0.0.9",
+  version="0.0.10",
   author="me",
   description="Common code for the FlixTube application",
   install_requires=[
