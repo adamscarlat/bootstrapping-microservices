@@ -16,7 +16,7 @@ jobs:
           cd common
           pip install build twine
           python -m build
-          twine upload --username __token__ --password "${{ secrets.PYPI_TOKEN }}"
+          twine upload --username __token__ --password "${{ secrets.PYPI_TOKEN }}" dist/*
 
   video-streaming:
     needs: 
