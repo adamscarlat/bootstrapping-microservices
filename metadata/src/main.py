@@ -6,6 +6,7 @@ from flixtube_common.cosmosdb.db_operations import CosmosDbOperations
 
 app = FastAPI()
 
+
 cosmos_ops = CosmosDbOperations(
   environment.DBHOST, 
   environment.DB_USERNAME, 
