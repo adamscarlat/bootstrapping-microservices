@@ -20,6 +20,7 @@ jobs:
       DIRECTORY: video-streaming 
   deploy-video-streaming:
     if: github.ref == 'refs/heads/main'
+    needs: build-video-streaming
     uses: ./.github/workflows/deploy-template.yaml
     secrets: inherit
     with:
