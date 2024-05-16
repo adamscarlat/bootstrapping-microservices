@@ -6,6 +6,7 @@ on:
       - '*'
     paths:
       - history/**
+      - .github/workflows/history-service.yaml
   workflow_run:
     workflows: ["Common"]
     branches: [main]

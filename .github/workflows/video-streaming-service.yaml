@@ -6,6 +6,7 @@ on:
       - '*'
     paths:
       - video-streaming/**
+      - .github/workflows/video-streaming-service.yaml
   workflow_run:
     workflows: ["Common"]
     branches: [main]
