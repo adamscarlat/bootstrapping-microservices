@@ -1,0 +1,22 @@
+name: Common
+
+on: 
+  push:
+    branches:
+      - '*'
+    paths:
+      - common/**
+  workflow_dispatch:
+      
+jobs:
+  common:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Common
+        run: |
+          cd common
+          pip install build twine
+          python -m build
+          ls -l
+          twine upload --username __token__ --password "${{ secrets.PYPI_TOKEN }}" --skip-existing dist/*

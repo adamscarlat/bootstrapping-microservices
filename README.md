@@ -6,9 +6,19 @@ Todo
 ----
 * Have the upload service publish a "videoUploaded" message via the bus and remove the code
   that saves the video to the videos collection.
-  - Instead, have the metadata service pick up the message and save it to the videos collection.
+  - Then have the storage service query the storage when it first boots up and send messages about videos
+    that it finds there.
+  - Metadata service picks up these messages and if the video doesn't exist save it to the videos collection.
 
-* Move common code to pypi packages
+* Split the build stage into multiple yaml files with the `path` attribute so that they run only when code
+  gets checked into their folders.
+  - It's not just the build pipeline, each of these files will also have the deployment code for that 
+    microservice. 
+  - They will still use the templates
+
+* In the history server, do the count views aggregation using mongodb (and not in python).
+
+* (DONE) Move common code to pypi packages
 
 Docs
 ----
