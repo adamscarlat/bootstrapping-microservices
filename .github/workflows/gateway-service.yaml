@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:      
-  gateway:
+  build-gateway:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,3 +18,12 @@ jobs:
         run: |    
           cd gateway
           npm install
+  deploy-gateway:
+    if: github.ref == 'refs/heads/main'
+    needs: build-gateway
+    uses: ./.github/workflows/deploy-template.yaml
+    secrets: inherit
+    with:
+      NAME: gateway
+      DIRECTORY: gateway
+      SERVICE_TYPE: ClusterIP          

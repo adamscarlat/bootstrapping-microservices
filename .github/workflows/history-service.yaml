@@ -14,7 +14,16 @@ on:
   workflow_dispatch:
 
 jobs:      
-  history:
+  build-history:
     uses: ./.github/workflows/build-template.yaml
     with:
-      DIRECTORY: history 
+      DIRECTORY: history
+  deploy-history:
+    if: github.ref == 'refs/heads/main'
+    needs: build-history
+    uses: ./.github/workflows/deploy-template.yaml
+    secrets: inherit
+    with:
+      NAME: history
+      DIRECTORY: history
+      SERVICE_TYPE: ClusterIP       

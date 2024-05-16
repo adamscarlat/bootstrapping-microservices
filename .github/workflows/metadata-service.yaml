@@ -14,7 +14,16 @@ on:
   workflow_dispatch:
 
 jobs:      
-  metadata:
+  build-metadata:
     uses: ./.github/workflows/build-template.yaml
     with:
-      DIRECTORY: metadata 
+      DIRECTORY: metadata
+  deploy-metadata:
+    if: github.ref == 'refs/heads/main'
+    needs: build-metadata
+    uses: ./.github/workflows/deploy-template.yaml
+    secrets: inherit
+    with:
+      NAME: metadata
+      DIRECTORY: metadata
+      SERVICE_TYPE: ClusterIP        

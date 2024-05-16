@@ -14,7 +14,16 @@ on:
   workflow_dispatch:
 
 jobs:      
-  azure-storage:
+  build-azure-storage:
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: azure-storage 
+  deploy-azure-storage:
+    if: github.ref == 'refs/heads/main'
+    needs: build-azure-storage
+    uses: ./.github/workflows/deploy-template.yaml
+    secrets: inherit
+    with:
+      NAME: azure-storage
+      DIRECTORY: azure-storage
+      SERVICE_TYPE: ClusterIP         
