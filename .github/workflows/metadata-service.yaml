@@ -1,11 +1,11 @@
-name: Video Streaming
+name: Metadata
 
 on: 
   push:
     branches:
       - '*'
     paths:
-      - video-streaming/**
+      - metadata/**
   workflow_run:
     workflows: ["Common"]
     branches: [main]
@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:      
-  video-streaming:
+  metadata:
     uses: ./.github/workflows/build-template.yaml
     with:
-      DIRECTORY: video-streaming 
+      DIRECTORY: metadata 
