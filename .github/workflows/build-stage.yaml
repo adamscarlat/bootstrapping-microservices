@@ -22,26 +22,26 @@ jobs:
   # video-streaming:
   #   needs: 
   #     - common
-  #   uses: ./.github/workflows/pipeline-templates/build-template.yaml
+  #   uses: ./.github/workflows/build-template.yaml
   #   with:
   #     DIRECTORY: video-streaming 
 
   metadata:
     needs: 
       - common
-    uses: ./.github/workflows/pipeline-templates/build-template.yaml
+    uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: metadata 
   history:
     needs: 
       - common  
-    uses: ./.github/workflows/pipeline-templates/build-template.yaml
+    uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: history    
   azure-storage:
     needs: 
       - common  
-    uses: ./.github/workflows/pipeline-templates/build-template.yaml
+    uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: azure-storage
   gateway:
