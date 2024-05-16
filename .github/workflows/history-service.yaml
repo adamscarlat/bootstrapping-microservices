@@ -1,0 +1,20 @@
+name: History
+
+on: 
+  push:
+    branches:
+      - '*'
+    paths:
+      - history/**
+  workflow_run:
+    workflows: ["Common"]
+    branches: [main]
+    types: 
+      - completed         
+  workflow_dispatch:
+
+jobs:      
+  history:
+    uses: ./.github/workflows/build-template.yaml
+    with:
+      DIRECTORY: history 

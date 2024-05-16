@@ -1,0 +1,20 @@
+name: Storage
+
+on: 
+  push:
+    branches:
+      - '*'
+    paths:
+      - azure-storage/**
+  workflow_run:
+    workflows: ["Common"]
+    branches: [main]
+    types: 
+      - completed         
+  workflow_dispatch:
+
+jobs:      
+  azure-storage:
+    uses: ./.github/workflows/build-template.yaml
+    with:
+      DIRECTORY: azure-storage 
