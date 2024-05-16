@@ -6,7 +6,6 @@ from video import download_video, publish_viewed_message, read_file
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from flixtube_common.cosmosdb.db_operations import CosmosDbOperations
 
-
 app = FastAPI()
 
 cosmos_ops = CosmosDbOperations(
