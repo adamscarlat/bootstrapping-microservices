@@ -27,26 +27,26 @@ jobs:
   #     DIRECTORY: video-streaming 
 
   metadata:
-    needs: 
-      - common
+    # needs: 
+    #   - common
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: metadata 
   history:
-    needs: 
-      - common  
+    # needs: 
+    #   - common  
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: history    
   azure-storage:
-    needs: 
-      - common  
+    # needs: 
+    #   - common  
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: azure-storage
   gateway:
-    needs: 
-      - common  
+    # needs: 
+    #   - common  
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
