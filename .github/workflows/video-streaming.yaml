@@ -15,7 +15,7 @@ on:
 
 jobs:      
   video-streaming:
-    #if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: video-streaming 
