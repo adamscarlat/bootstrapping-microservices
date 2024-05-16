@@ -14,7 +14,15 @@ on:
   workflow_dispatch:
 
 jobs:      
-  video-streaming:
+  build-video-streaming:
     uses: ./.github/workflows/build-template.yaml
     with:
       DIRECTORY: video-streaming 
+  deploy-video-streaming:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deploy-template.yaml
+    secrets: inherit
+    with:
+      NAME: video-streaming
+      DIRECTORY: video-streaming
+      SERVICE_TYPE: ClusterIP      

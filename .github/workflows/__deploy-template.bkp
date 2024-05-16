@@ -17,23 +17,8 @@ on:
         type: string  
 
 jobs:
-  deploy-infra:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      # Build and publish the image
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Setup kubectl
-        uses: tale/kubectl-action@v1
-        with:
-          base64-kube-config: ${{ secrets.KUBE_CONFIG }}
-          kubectl-version: v1.29.4  
-      - name: Deploy infra
-        run: ./scripts/cd/deploy-infra.sh  
-
   deploy-service:
-    needs: deploy-infra
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest 
     env:
       NAME: "${{ inputs.NAME }}"
