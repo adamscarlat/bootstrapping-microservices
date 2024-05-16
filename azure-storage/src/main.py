@@ -15,6 +15,7 @@ cosmos_ops = CosmosDbOperations(
 
 app = FastAPI()
 
+
 # http://0.0.0.0:8001/video?path=SampleVideo_1280x720_5mb.mp4
 @app.get("/video")
 async def get_video(path: str):

@@ -10,6 +10,7 @@ from models import ViewedVideoMessage
 from flixtube_common.cosmosdb.db_operations import CosmosDbOperations
 from flixtube_common.rabbitmq.pika_client import PikaClient
 
+
 cosmos_ops = CosmosDbOperations(
   environment.DBHOST, 
   environment.DB_USERNAME, 
