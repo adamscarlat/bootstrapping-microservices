@@ -1,6 +1,5 @@
 Dev notes
 ---------
-* Book: ch 10.4.3
 
 Todo
 ----
@@ -10,7 +9,7 @@ Todo
     that it finds there.
   - Metadata service picks up these messages and if the video doesn't exist save it to the videos collection.
 
-* Split the build stage into multiple yaml files with the `path` attribute so that they run only when code
+* (DONE) Split the build stage into multiple yaml files with the `path` attribute so that they run only when code
   gets checked into their folders.
   - It's not just the build pipeline, each of these files will also have the deployment code for that 
     microservice. 
@@ -79,8 +78,6 @@ kubectl port-forward service/gateway 30000:80
 
 Github Actions
 --------------
-* Use `act` to test github actions locally
-
 * Making a script executable before pushing it to git:
 
 ```bash

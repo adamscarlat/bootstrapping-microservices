@@ -1,7 +1,7 @@
 import environment
 
 from fastapi import Depends, FastAPI, HTTPException, Response, UploadFile, File, Request
-from storage import create_blob_service_client, download_blob
+from storage import create_blob_service_client, download_blob, publish_uploaded_message
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from azure.core.exceptions import ResourceExistsError
 from flixtube_common.cosmosdb.db_operations import CosmosDbOperations
@@ -52,13 +52,8 @@ async def post_video(request: Request, db_client: AsyncIOMotorDatabase = Depends
     blob_client.upload_blob(contents)
   except ResourceExistsError as e:
     raise HTTPException(status_code=409, detail="Item with the same name already exists")
-
-  collection = db_client.get_collection("videos")
-  doc_count = await collection.count_documents({})
-  await collection.insert_one({
-     "id": str(doc_count + 1),
-     "videoPath": file_name
-  })
+  
+  await publish_uploaded_message(file_name, "uploaded")
 
   return {"uploadComplete": True}
 
