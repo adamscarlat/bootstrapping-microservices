@@ -3,11 +3,8 @@ Dev notes
 
 Todo
 ----
-* Have the upload service publish a "videoUploaded" message via the bus and remove the code
+* (DONE) Have the upload service publish a "videoUploaded" message via the bus and remove the code
   that saves the video to the videos collection.
-  - Then have the storage service query the storage when it first boots up and send messages about videos
-    that it finds there.
-  - Metadata service picks up these messages and if the video doesn't exist save it to the videos collection.
 
 * (DONE) Split the build stage into multiple yaml files with the `path` attribute so that they run only when code
   gets checked into their folders.

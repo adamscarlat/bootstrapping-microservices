@@ -37,23 +37,23 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/history")
 async def get_history(db_client: AsyncIOMotorDatabase = Depends(cosmos_ops.get_database_client)):
-  fields = {"_id": 0, "id": 1, "video_path": 1}
-
-  history_items = await db_client.get_collection("history").find(projection=fields).to_list(length=None)
-  
-  history_counts = {}
-  for item in history_items:
-     if item["id"] not in history_counts:
-        history_counts[item["id"]] = 0
-     history_counts[item["id"]] += 1
+  history_collection = db_client.get_collection("history")
+  pipeline = [
+    {"$group": {
+        "_id": {"id": "$id", "video_path": "$video_path"},
+        "count": {"$sum": 1},
+      }
+    }
+  ]
 
   counted_items = []
-  for id in history_counts.keys():
-     for item in history_items:
-        if item["id"] == id:
-           item["count"] = history_counts[id]
-           counted_items.append(item)
-           break
+  async for result in history_collection.aggregate(pipeline):
+    print(result)
+    counted_items.append({
+      "id": result["_id"]["id"],
+      "video_path": result["_id"]["video_path"],
+      "count": result["count"]
+    })
   
   print (counted_items)
 
