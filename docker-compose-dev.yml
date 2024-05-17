@@ -29,7 +29,9 @@ services:
       - "8001:80"
     env_file:
       - .env
-    restart: "no"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
 
   video-streaming:
     image: video-streaming
@@ -84,6 +86,8 @@ services:
     env_file:
       - .env
     depends_on:
+      rabbitmq:
+        condition: service_healthy    
       db:
         condition: service_started         
 

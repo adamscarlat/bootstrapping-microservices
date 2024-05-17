@@ -28,7 +28,10 @@ services:
       - .env      
     environment:  
       - DEV=0
-    restart: "no"
+    restart: on-failure
+    depends_on:
+      rabbitmq:
+        condition: service_healthy    
 
   video-streaming:
     image: video-streaming
@@ -42,6 +45,7 @@ services:
       - .env      
     environment:  
       - DEV=0
+    restart: on-failure
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -60,6 +64,7 @@ services:
       - .env      
     environment:  
       - DEV=0
+    restart: on-failure
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -77,8 +82,11 @@ services:
     env_file:
       - .env
     environment:  
-      - DEV=0      
+      - DEV=0
+    restart: on-failure
     depends_on:
+      rabbitmq:
+        condition: service_healthy    
       db:
         condition: service_started   
 
