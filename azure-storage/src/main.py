@@ -57,6 +57,5 @@ async def post_video(request: Request, db_client: AsyncIOMotorDatabase = Depends
 
   return {"uploadComplete": True}
 
-
 if __name__ == "__main__":
   environment.start_app()

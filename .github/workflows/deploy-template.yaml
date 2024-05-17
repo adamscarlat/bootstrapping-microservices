@@ -29,7 +29,7 @@ jobs:
           echo -e "\nSTORAGE_ACCESS_KEY=${{ secrets.STORAGE_ACCESS_KEY }}" >> .env
           cat .env
           docker-compose -f docker-compose-prod.yml up --build -d
-          sleep 20
+          sleep 10
       - name: Run the tests   
         uses: nick-fields/retry@v2
         with:
