@@ -1,20 +1,9 @@
-Dev notes
----------
+Bootstrapping Microservices
+---------------------------
+Code for the Python version of the sample application from the book Bootstrapping Microservices by Ashley Davis:
 
-Todo
-----
-* (DONE) Have the upload service publish a "videoUploaded" message via the bus and remove the code
-  that saves the video to the videos collection.
+https://www.manning.com/books/bootstrapping-microservices-second-edition
 
-* (DONE) Split the build stage into multiple yaml files with the `path` attribute so that they run only when code
-  gets checked into their folders.
-  - It's not just the build pipeline, each of these files will also have the deployment code for that 
-    microservice. 
-  - They will still use the templates
-
-* In the history server, do the count views aggregation using mongodb (and not in python).
-
-* (DONE) Move common code to pypi packages
 
 Docs
 ----
@@ -83,9 +72,13 @@ git update-index --chmod=+x hello.sh
 
 * `KUBE_CONFIG` must be set up as an actions secret (different per cluster)
   - The image registry secrets should also be set but those dont change
+
   - To add the kube_config to the secrets, first base64 it, then add it as a secret:
 
 ```bash
 cat ~/.kube/config | base64 > kube_tmp
 ```
 
+TODO
+---
+* In the history server, do the count views aggregation using mongodb (and not in python).
